@@ -1,12 +1,13 @@
 import { create } from 'zustand';
+import type { Movie } from '@/services/movies';
 
 interface StoreState {
   // Example: user preferences
   theme: 'light' | 'dark';
   setTheme: (theme: 'light' | 'dark') => void;
   // Example: movie data caching
-  trendingMovies: any[];
-  setTrendingMovies: (movies: any[]) => void;
+  trendingMovies: Movie[];
+  setTrendingMovies: (movies: Movie[]) => void;
   // Add more state as needed
 }
 

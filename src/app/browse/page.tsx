@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import MovieCard from '@/components/ui/movie-card';
-import { getMovies } from '@/services/movies';
+import { getMovies, type Movie } from '@/services/movies';
 import { Search } from 'lucide-react';
 
 export default function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [movies, setMovies] = useState<Array<any>>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,15 +16,15 @@ export default function BrowsePage() {
       try {
         setLoading(true);
         setError(null);
-        const filters: any = {};
+        const filters: { searchTerm?: string } = {};
         if (searchTerm) {
           filters.searchTerm = searchTerm;
         }
         
         const { movies: fetchedMovies } = await getMovies(filters, 20);
         setMovies(fetchedMovies);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load movies');
       } finally {
         setLoading(false);
       }

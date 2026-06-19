@@ -18,7 +18,6 @@ export default function MovieDetailsPage() {
     if (!movieId) return;
 
     let active = true;
-    setLoading(true);
     getMovieById(movieId).then((m) => {
       if (active) {
         setMovie(m);
